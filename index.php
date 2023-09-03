@@ -1,3 +1,31 @@
+<?php
+include 'conexao/conexao.php';
+session_start();
+
+if (isset($_POST['LogarUsuario'])) {
+    $codigo_user = $_POST['codigo_user']; // Codigo do usuario
+    $senha_user = $_POST['senha_user']; // Senha do usuario
+
+    $consulta_user = "SELECT * FROM lista_colaboradores WHERE codigo_colaborador = '$codigo_user'";
+    $resultado_consulta_user = $conexao->query($consulta_user);
+
+    if (mysqli_num_rows($resultado_consulta_user) > 0) {
+        $row = $resultado_consulta_user->fetch_assoc();
+        $codigo_colaborador = $row['codigo_colaborador'];
+        $senha_colaborador = $row['senha_colaborador'];
+        $nome_colaborador = $row['nome_colaborador']; // Nome do colaborador
+
+        if ($senha_colaborador == $senha_user || $codigo_user == $codigo_colaborador) {
+            echo "Logado com sucesso!";
+            $_SESSION['nome_colaborador'] = $nome_colaborador; // Armazena o nome do colaborador na sessão
+            header("Location: paginas/dashboard.php");
+        } else {
+            echo "Você precisa ser registrar";
+            header("Location: registro.php");
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,30 +61,4 @@
 </body>
 </html>
 
-<?php
-include 'conexao/conexao.php';
 
-if (isset($_POST['LogarUsuario'])) {
-    $codigo_user = $_POST['codigo_user']; // Codigo do usuario
-    $senha_user = $_POST['senha_user']; // Senha do usuario
-
-    $consulta_user = "SELECT * FROM lista_colaboradores WHERE codigo_colaborador = '$codigo_user'";
-    $resultado_consulta_user = $conexao->query($consulta_user);
-
-    if (mysqli_num_rows($resultado_consulta_user) > 0) {
-        $row = $resultado_consulta_user->fetch_assoc();
-        $codigo_colaborador = $row['codigo_colaborador'];
-        $senha_colaborador = $row['senha_colaborador'];
-        $nome_colaborador = $row['nome_colaborador']; // Nome do colaborador
-
-        if ($senha_colaborador == $senha_user || $codigo_user == $codigo_colaborador) {
-            echo "Logado com sucesso!";
-            $_SESSION['nome_colaborador'] = $nome_colaborador; // Armazena o nome do colaborador na sessão
-            header("Location: paginas/dashboard.php");
-        } else {
-            echo "Você precisa ser registrar";
-            header("Location: registro.php");
-        }
-    }
-}
-?>
