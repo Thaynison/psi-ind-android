@@ -1,0 +1,247 @@
+@font-face {
+    font-family: SuzanoText-Bold;
+    src: url(../fonts/SuzanoText-Bold.ttf);
+}
+@font-face {
+    font-family: SuzanoText-Regular;
+    src: url(../fonts/SuzanoText-Regular.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: SuzanoText-Regular;
+}
+
+@media (min-width: 0px) and (max-width: 1246px) {
+    body {
+        background: rgb(255,210,193);
+        background: linear-gradient(90deg, rgba(255,210,193,1) 0%, rgba(170,170,244,1) 50%, rgba(210,202,253,1) 100%);
+        height: 90vh;
+        display: flex;
+        margin-top: 35px;
+        justify-content: center;
+        align-items: center;
+    }
+    .login_send {
+        width: 40vh;
+        height: 50vh;
+        background-color: rgba(255, 255, 255, 0.468);
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    .top_login {
+        width: 100%;
+        height: 70%;
+        /* background-color: brown; */
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .top_login .options_login {
+        width: 100%;
+        /* height: 74%; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .top_login .options_login img {
+        width: 40%;
+        margin-bottom: 20px;
+    }
+    .top_login .options_login .btn-login_input {
+        width: 63%;
+        height: 50%;
+        margin-top: 15px;
+        border-color: transparent;
+        border-radius: 10px;
+    }
+    .buttom_login {
+        width: 100%;
+        height: 30%;
+        /* background-color: blueviolet; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-logar_usuario {
+        width: 30%;
+        height: 25%;
+        border-radius: 20px;
+        border-color: rgba(0, 119, 255, 0.253);
+        background-color: rgba(0, 119, 255, 0.253);
+        font-weight: 700;
+    }
+    .btn-logar_usuario:hover {
+        width: 32%;
+        height: 26%;
+        border-radius: 20px;
+        border-color: rgba(0, 255, 106, 0.253);
+        background-color: rgba(0, 255, 106, 0.253);
+        font-weight: 700;
+    }
+    .text-logar_usuario {
+        margin-top: 10px;
+        font-size: 13px;
+    }
+    
+}
+
+
+
+
+
+@media (min-width: 1246px) and (max-width: 1919px) {
+    body {
+        background: rgb(255,210,193);
+        background: linear-gradient(90deg, rgba(255,210,193,1) 0%, rgba(170,170,244,1) 50%, rgba(210,202,253,1) 100%);
+        height: 90vh;
+        display: flex;
+        margin-top: 35px;
+        align-items: center;
+    }
+    .login_send {
+        margin-left: 10%;
+        width: 50vh;
+        height: 60vh;
+        background-color: rgba(255, 255, 255, 0.468);
+        border-radius: 20px;
+    }
+    .top_login {
+        width: 100%;
+        height: 70%;
+        /* background-color: brown; */
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .top_login .options_login {
+        width: 100%;
+        /* height: 74%; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .top_login .options_login img {
+        width: 40%;
+        margin-bottom: 20px;
+    }
+    .top_login .options_login .btn-login_input {
+        width: 63%;
+        height: 50%;
+        margin-top: 15px;
+        border-color: transparent;
+        border-radius: 10px;
+    }
+    .buttom_login {
+        width: 100%;
+        height: 30%;
+        /* background-color: blueviolet; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-logar_usuario {
+        width: 30%;
+        height: 25%;
+        border-radius: 20px;
+        border-color: rgba(0, 119, 255, 0.253);
+        background-color: rgba(0, 119, 255, 0.253);
+        font-weight: 700;
+    }
+    .btn-logar_usuario:hover {
+        width: 32%;
+        height: 26%;
+        border-radius: 20px;
+        border-color: rgba(0, 255, 106, 0.253);
+        background-color: rgba(0, 255, 106, 0.253);
+        font-weight: 700;
+    }
+    .text-logar_usuario {
+        margin-top: 10px;
+        font-size: 13px;
+    }
+    
+}
+
+@media (min-width: 1919px) {
+    body {
+        background: rgb(255,210,193);
+        background: linear-gradient(90deg, rgba(255,210,193,1) 0%, rgba(170,170,244,1) 50%, rgba(210,202,253,1) 100%);
+        height: 90vh;
+        display: flex;
+        margin-top: 35px;
+        align-items: center;
+    }
+    .login_send {
+        margin-left: 10%;
+        width: 50vh;
+        height: 60vh;
+        background-color: rgba(255, 255, 255, 0.468);
+        border-radius: 20px;
+    }
+    .top_login {
+        width: 100%;
+        height: 70%;
+        /* background-color: brown; */
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .top_login .options_login {
+        width: 100%;
+        /* height: 74%; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .top_login .options_login img {
+        width: 40%;
+        margin-bottom: 20px;
+    }
+    .top_login .options_login .btn-login_input {
+        width: 63%;
+        height: 50%;
+        margin-top: 15px;
+        border-color: transparent;
+        border-radius: 10px;
+    }
+    .buttom_login {
+        width: 100%;
+        height: 30%;
+        /* background-color: blueviolet; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-logar_usuario {
+        width: 30%;
+        height: 25%;
+        border-radius: 20px;
+        border-color: rgba(0, 119, 255, 0.253);
+        background-color: rgba(0, 119, 255, 0.253);
+        font-weight: 700;
+    }
+    .btn-logar_usuario:hover {
+        width: 32%;
+        height: 26%;
+        border-radius: 20px;
+        border-color: rgba(0, 255, 106, 0.253);
+        background-color: rgba(0, 255, 106, 0.253);
+        font-weight: 700;
+    }
+    .text-logar_usuario {
+        margin-top: 10px;
+        font-size: 13px;
+    }
+}
