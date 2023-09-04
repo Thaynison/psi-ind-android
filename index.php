@@ -53,7 +53,7 @@ if (isset($_POST['LogarUsuario'])) {
                     <input class="btn-login_input" type="text" name="senha_user">
                 </div>
             </div>
-            <div class="buttom_login
+            <div class="buttom_login">
                 <input class="btn-logar_usuario" type="submit" name="LogarUsuario" value="Logar">
                 <h1 class="text-logar_usuario">Entre com o código de usuário</h1>
             </div>
