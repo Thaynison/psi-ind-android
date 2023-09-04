@@ -1,6 +1,6 @@
 <?php
-session_start();
 include 'conexao/conexao.php';
+session_start();
 
 if (isset($_POST['LogarUsuario'])) {
     $codigo_user = $_POST['codigo_user']; // Codigo do usuario
@@ -16,8 +16,8 @@ if (isset($_POST['LogarUsuario'])) {
         $nome_colaborador = $row['nome_colaborador']; // Nome do colaborador
 
         if ($senha_colaborador == $senha_user && $codigo_user == $codigo_colaborador) {
+            $usuario_logado = true;
             $_SESSION['nome_colaborador'] = $nome_colaborador; // Armazena o nome do colaborador na sessão
-            $usuario_logado = false;
             header("Location: paginas/dashboard.php");
         } else {
             $usuario_logado = false;
