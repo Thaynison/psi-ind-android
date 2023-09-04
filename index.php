@@ -1,6 +1,6 @@
 <?php
-include 'conexao/conexao.php';
 session_start();
+include 'conexao/conexao.php';
 
 if (isset($_POST['LogarUsuario'])) {
     $codigo_user = $_POST['codigo_user']; // Codigo do usuario
@@ -34,6 +34,7 @@ if (isset($_POST['LogarUsuario'])) {
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/all.css">
     <link rel="shortcut icon" href="img/psi-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/notifications.css">
     <title>PSI - Android</title>
 </head>
 <body>
@@ -62,3 +63,15 @@ if (isset($_POST['LogarUsuario'])) {
 </html>
 
 
+<div class="notifcation" id="NotifcationID">
+    <div class="options1">
+        <h1 class="aviso">Erro:</h1>
+        <img class="logo-notify" src="img/psi-logo.png">
+    </div>
+    <div class="options2">
+        <h1 class="Descricao">Erro ao efetuar o login!</h1>
+    </div>
+    <div class="options1">
+        <h1 class="Direitos">© PSI INDUSTRIAL | 2023 - Todos Direitos Reservados.</h1>
+    </div>
+</div>

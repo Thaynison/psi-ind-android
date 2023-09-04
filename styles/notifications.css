@@ -1,0 +1,51 @@
+@media (min-width: 0px) and (max-width: 1246px) {
+    .notifcation {
+        width: 70%;
+        height: 8%;
+        background-color: rgba(255, 255, 255, 0.468);
+        position: absolute;
+        top: 10%;
+        left: 30%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .notifcation .options1 {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .aviso {
+        font-size: 10px;
+        margin-right: 70%;
+    }
+    .Direitos {
+        font-size: 7px;
+    }
+    .notifcation .options2 {
+        width: 100%;
+        height: 60%;
+        display: flex;
+        align-items: center;
+    }
+    .Descricao {
+        font-size: 12px;
+        margin-left: 2%;
+        font-weight: 700;
+    }
+    .logo-notify {
+        width: 16px;
+    }
+}
+
+
+
+
+
+@media (min-width: 1246px) and (max-width: 1919px) {
+}
+
+@media (min-width: 1919px) {
+}
