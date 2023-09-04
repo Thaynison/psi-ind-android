@@ -16,7 +16,6 @@ if (isset($_POST['LogarUsuario'])) {
         $nome_colaborador = $row['nome_colaborador']; // Nome do colaborador
 
         if ($senha_colaborador == $senha_user && $codigo_user == $codigo_colaborador) {
-            $usuario_logado = true;
             $_SESSION['nome_colaborador'] = $nome_colaborador; // Armazena o nome do colaborador na sessão
             header("Location: paginas/dashboard.php");
         } else {
