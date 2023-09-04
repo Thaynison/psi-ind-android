@@ -8,7 +8,8 @@
 }
 
 .element1 .title {
-    width: 25%;
+    /* width: 25%; */
+    font-size: 17px;
 }
 
 .element1 .title h1 {
@@ -18,7 +19,7 @@
 }
 
 .element1 .options {
-    width: 75%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -26,7 +27,7 @@
 }
 
 .element1 .options .busca1 {
-    width: 28%;
+    width: 29%;
     height: 30px;
     margin-right: 60px;
     border-radius: 10px;
@@ -50,11 +51,21 @@
 }
 
 .element1 .options .busca2 {
-    width: 28%;
+    width: 30%;
     height: 30px;
     margin-right: 60px;
     border-radius: 10px;
     border-color: transparent;
+    /* background-color: rgba(255, 255, 255, 0.674); */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.element1 .options .busca2 img {
+    width: 10%;
+    border-radius: 20px;
 }
 
 .element2 {

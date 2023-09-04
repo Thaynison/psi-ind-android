@@ -149,16 +149,21 @@ if (isset($_POST["logout"])) {
                         <input class="input" type="text" disabled>
                         <i class="fa-regular fa-magnifying-glass"></i>
                     </div>
-                    <input class="busca2" value="     <?php
-                        if (isset($_SESSION['nome_colaborador'])) {
-                            $nome_colaborador = $_SESSION['nome_colaborador'];
-                            echo "Olá, $nome_colaborador!";
-                        } else {
-                            echo "Você não está logado.";
-                        }
-                        ?>
-                    " disabled>
-                    </input>
+                    <div class="busca2">
+                        <?php if (isset($_SESSION['foto_colaborador'])) : ?>
+                            <img src="<?php echo $_SESSION['foto_colaborador']; ?>" alt="Foto do Colaborador">
+                        <?php endif; ?>
+                        <h1 class="title">
+                            <?php
+                            if (isset($_SESSION['nome_colaborador'])) {
+                                $nome_colaborador = $_SESSION['nome_colaborador'];
+                                echo "Olá, $nome_colaborador!";
+                            } else {
+                                echo "Você não está logado.";
+                            }
+                            ?>
+                        </h1>
+                    </div>
                 </div>
             </div>
             <div class="element2">

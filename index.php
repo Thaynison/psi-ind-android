@@ -3,8 +3,8 @@ session_start();
 include 'conexao/conexao.php';
 
 if (isset($_POST['LogarUsuario'])) {
-    $codigo_user = $_POST['codigo_user']; // Codigo do usuario
-    $senha_user = $_POST['senha_user']; // Senha do usuario
+    $codigo_user = $_POST['codigo_user'];
+    $senha_user = $_POST['senha_user'];
 
     $consulta_user = "SELECT * FROM lista_colaboradores WHERE codigo_colaborador = '$codigo_user'";
     $resultado_consulta_user = $conexao->query($consulta_user);
@@ -13,10 +13,12 @@ if (isset($_POST['LogarUsuario'])) {
         $row = $resultado_consulta_user->fetch_assoc();
         $codigo_colaborador = $row['codigo_colaborador'];
         $senha_colaborador = $row['senha_colaborador'];
-        $nome_colaborador = $row['nome_colaborador']; // Nome do colaborador
+        $nome_colaborador = $row['nome_colaborador'];
+        $foto_colaborador = $row['foto_colaborador'];
 
         if ($senha_colaborador == $senha_user && $codigo_user == $codigo_colaborador) {
-            $_SESSION['nome_colaborador'] = $nome_colaborador; // Armazena o nome do colaborador na sessão
+            $_SESSION['nome_colaborador'] = $nome_colaborador;
+            $_SESSION['foto_colaborador'] = $foto_colaborador;
             header("Location: paginas/dashboard.php");
         } else {
             $usuario_logado = false;
