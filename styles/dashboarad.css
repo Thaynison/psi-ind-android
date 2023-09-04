@@ -14,7 +14,13 @@
 }
 
 @media (min-width: 0px) and (max-width: 1246px) {
-    
+    body {
+        background: linear-gradient(90deg, rgba(251,207,10,1) 0%, rgb(225, 188, 22)50%, rgba(6, 7, 9, 0.837) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 35px;
+    }
 }
 
 @media (min-width: 1246px) and (max-width: 1919px) {
