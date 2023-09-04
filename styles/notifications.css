@@ -2,7 +2,8 @@
     .notifcation {
         width: 70%;
         height: 8%;
-        background-color: rgba(255, 255, 255, 0.468);
+        /* background-color: rgba(255, 255, 255, 0.353); */
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.39)30%, rgba(255, 255, 255, 0.593) 100%);
         position: absolute;
         top: 10%;
         left: 30%;
@@ -19,7 +20,7 @@
     }
     .aviso {
         font-size: 10px;
-        margin-right: 70%;
+        margin-right: 77%;
     }
     .Direitos {
         font-size: 7px;

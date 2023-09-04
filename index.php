@@ -53,7 +53,7 @@ if (isset($_POST['LogarUsuario'])) {
                     <input class="btn-login_input" type="text" name="senha_user">
                 </div>
             </div>
-            <div class="buttom_login">
+            <div class="buttom_login
                 <input class="btn-logar_usuario" type="submit" name="LogarUsuario" value="Logar">
                 <h1 class="text-logar_usuario">Entre com o código de usuário</h1>
             </div>
@@ -72,6 +72,6 @@ if (isset($_POST['LogarUsuario'])) {
         <h1 class="Descricao">Erro ao efetuar o login!</h1>
     </div>
     <div class="options1">
-        <h1 class="Direitos">© PSI INDUSTRIAL | 2023 - Todos Direitos Reservados.</h1>
+        <h1 class="Direitos">© 2023 - PSI INDUSTRIAL | Todos Direitos Reservados.</h1>
     </div>
 </div>
