@@ -1,6 +1,6 @@
 <?php
-include 'conexao/conexao.php';
 session_start();
+include 'conexao/conexao.php';
 
 if (isset($_POST['LogarUsuario'])) {
     $codigo_user = $_POST['codigo_user']; // Codigo do usuario

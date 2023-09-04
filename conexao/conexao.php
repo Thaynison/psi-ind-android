@@ -1,4 +1,5 @@
 <?php
+session_start();
 $DB_HOST = "containers-us-west-113.railway.app";
 $DB_NAME = "railway";
 $DB_PASSWORD = "mmbcUTHymnuEUj2cuPa5";
