@@ -1,5 +1,5 @@
 @media (min-width: 0px) and (max-width: 1246px) {
-    .notifcation {
+    .notification {
         width: 70%;
         height: 8%;
         /* background-color: rgba(255, 255, 255, 0.353); */
@@ -10,7 +10,7 @@
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
     }
-    .notifcation .options1 {
+    .notification .options1 {
         width: 100%;
         height: 20%;
         display: flex;
@@ -25,7 +25,7 @@
     .Direitos {
         font-size: 7px;
     }
-    .notifcation .options2 {
+    .notification .options2 {
         width: 100%;
         height: 60%;
         display: flex;
@@ -39,6 +39,12 @@
     .logo-notify {
         width: 16px;
     }
+
+    @keyframes moveLeft {
+        from {right: 0;}
+        to {right: 100%;}
+    }
+    
 }
 
 

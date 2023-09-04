@@ -15,16 +15,19 @@ if (isset($_POST['LogarUsuario'])) {
         $senha_colaborador = $row['senha_colaborador'];
         $nome_colaborador = $row['nome_colaborador']; // Nome do colaborador
 
-        if ($senha_colaborador == $senha_user || $codigo_user == $codigo_colaborador) {
+        if ($senha_colaborador == $senha_user && $codigo_user == $codigo_colaborador) {
             echo "Logado com sucesso!";
             $_SESSION['nome_colaborador'] = $nome_colaborador; // Armazena o nome do colaborador na sessão
+            $usuario_logado = false;
             header("Location: ./paginas/dashboard.php");
         } else {
-            echo "Você precisa ser registrar";
-            header("Location: registro.php");
-        }
+            $usuario_logado = false;
+        }        
     }
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,11 +49,11 @@ if (isset($_POST['LogarUsuario'])) {
                 </div>
                 <div class="options_login">
                     <h1 class="text-logar_usuario">Usuário:</h1>
-                    <input class="btn-login_input" type="text" name="codigo_user">
+                    <input class="btn-login_input" type="number" name="codigo_user">
                 </div>
                 <div class="options_login">
                     <h1 class="text-logar_usuario">Senha:</h1>
-                    <input class="btn-login_input" type="text" name="senha_user">
+                    <input class="btn-login_input" type="password" name="senha_user">
                 </div>
             </div>
             <div class="buttom_login">
@@ -63,7 +66,7 @@ if (isset($_POST['LogarUsuario'])) {
 </html>
 
 
-<div class="notifcation" id="NotifcationID">
+<div class="notification" id="NotificationID" style="display: none">
     <div class="options1">
         <h1 class="aviso">Erro:</h1>
         <img class="logo-notify" src="img/psi-logo.png">
@@ -75,3 +78,20 @@ if (isset($_POST['LogarUsuario'])) {
         <h1 class="Direitos">© 2023 - PSI INDUSTRIAL | Todos Direitos Reservados.</h1>
     </div>
 </div>
+
+<script>
+    var usuarioLogado = <?php echo json_encode($usuario_logado); ?>;
+    var notificationDiv = document.getElementById("NotificationID");
+
+    // Atrasa a exibição da notificação por 3 segundos
+    setTimeout(function() {
+        if (!usuarioLogado) {
+            notificationDiv.style.display = "block";
+        }
+    }, 1000); // 3000 milissegundos = 3 segundos
+
+    // Esconde a notificação após 30 segundos
+    setTimeout(function() {
+        notificationDiv.style.display = "none";
+    }, 10000); // 30000 milissegundos = 30 segundos
+</script>
