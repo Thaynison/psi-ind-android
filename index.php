@@ -23,9 +23,6 @@ if (isset($_POST['LogarUsuario'])) {
         }        
     }
 }
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +33,7 @@ if (isset($_POST['LogarUsuario'])) {
     <link rel="shortcut icon" href="img/psi-logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/notifications.css">
-    <title>PSI - Android</title>
+    <title>PSI Industrial – Elétrica, Instrumentação e Automação Industrial</title>
 </head>
 <body>
     <div>
