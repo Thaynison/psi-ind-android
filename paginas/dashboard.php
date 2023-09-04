@@ -1,5 +1,6 @@
-
 <?php
+ob_start(); // Inicia o buffer de saída
+
 session_start();
 
 if (isset($_SESSION['nome_colaborador'])) {
@@ -9,6 +10,7 @@ if (isset($_SESSION['nome_colaborador'])) {
     echo "Você não está logado.";
 }
 
+ob_end_flush(); // Envia a saída do buffer
 ?>
 
 <!DOCTYPE html>
