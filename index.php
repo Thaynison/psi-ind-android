@@ -15,10 +15,12 @@ if (isset($_POST['LogarUsuario'])) {
         $senha_colaborador = $row['senha_colaborador'];
         $nome_colaborador = $row['nome_colaborador'];
         $foto_colaborador = $row['foto_colaborador'];
+        $cargo_colaborador = $row['cargo_colaborador'];
 
         if ($senha_colaborador == $senha_user && $codigo_user == $codigo_colaborador) {
             $_SESSION['nome_colaborador'] = $nome_colaborador;
             $_SESSION['foto_colaborador'] = $foto_colaborador;
+            $_SESSION['cargo_colaborador'] = $cargo_colaborador;
             header("Location: paginas/dashboard.php");
         } else {
             $usuario_logado = false;
