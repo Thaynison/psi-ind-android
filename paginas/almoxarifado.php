@@ -7,9 +7,15 @@ mysqli_set_charset($conexao, 'utf8');
 $BuscarMaterial = "SELECT * FROM lista_materiais";
 $result_BuscarMaterial = mysqli_query($conexao, $BuscarMaterial );
 
+$BuscarSaidaMaterial = "SELECT * FROM saida_material";
+$result_BuscarSaidaMaterial = mysqli_query($conexao, $BuscarSaidaMaterial );
+
+$BuscarColaboradores = "SELECT * FROM lista_colaboradores";
+$result_BuscarColaboradores = mysqli_query($conexao, $BuscarColaboradores );
+
 if (isset($_SESSION['cargo_colaborador'])) {
     $cargo_colaborador = $_SESSION['cargo_colaborador'];
-    $cargos_permitidos = array("Developer", "Planejador", "Almoxarife", "Supervisor", "Coordenador");
+    $cargos_permitidos = array("Developer", "Planejador", "Almoxarife","Encarregado", "Supervisor", "Coordenador", "Dono");
 
     if (in_array($cargo_colaborador, $cargos_permitidos)) {
         // Não faça o redirecionamento aqui, pois já está no local certo (Almoxarifado)
@@ -72,9 +78,8 @@ if (isset($_SESSION['cargo_colaborador'])) {
                 <ul class="dropdown-menu dropdown-menu-dark">
                 <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Cadastrar Material</a></li>
                 <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Romaneio de Entrada</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Lista de Material</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-minus"></i> Lista de Saida de Material</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Entrada de Material</a></li>
+                <li><a class="dropdown-item" id="listasaidamaterial-btn" href="#"><i class="fa-regular fa-minus"></i> Lista de Saida de Material</a></li>
+                <li><a class="dropdown-item" id="entradamaterial-btn" href="#"><i class="fa-regular fa-plus"></i> Entrada de Material</a></li>
                 <li><a class="dropdown-item" id="saidamaterial-btn" href="#"><i class="fa-regular fa-minus"></i> Saida de Material</a></li>
                 <li>
                     <hr class="dropdown-divider">
@@ -121,6 +126,102 @@ if (isset($_SESSION['cargo_colaborador'])) {
 </body>
 </html>
 
+<div class="backgroundOptions" id="ListaSaidaMaterial" style="display: none;">
+    <div class="GroundOptions">
+        <div class="opts1">
+            <h1>Lista de Saida de Materiais</h1>
+            <i class="fa-regular fa-xmark" id="btn-ocultar-ListaSaidaMaterial"></i>
+        </div>
+        <div class="opts2">
+            <div class="add4">
+                <h1 class="components">COD</h1>
+                <h1 class="components">Material</h1>
+                <h1 class="components">Quantidade</h1>
+                <h1 class="components">Colaborador</h1>
+                <h1 class="components">Data</h1>
+            </div>
+            <div class="add5-container">
+            <?php
+                while ($row = mysqli_fetch_assoc($result_BuscarSaidaMaterial)) {
+                    $codigo_colaborador = $row['codigo_colaborador'];
+                    
+                    // Consulta SQL para buscar o nome do colaborador com base no código
+                    $query_nome_colaborador = "SELECT nome_colaborador FROM lista_colaboradores WHERE codigo_colaborador = $codigo_colaborador";
+                    $result_nome_colaborador = mysqli_query($conexao, $query_nome_colaborador);
+                    $row_nome_colaborador = mysqli_fetch_assoc($result_nome_colaborador);
+                    $nome_colaborador = utf8_encode($row_nome_colaborador['nome_colaborador']);
+                    ?>
+
+                    <div class="add5 material-item">
+                        <h1 class="components">#<?php echo utf8_encode($row['codigo_material']); ?></h1>
+                        <h1 class="components">#<?php echo utf8_encode($row['nome_material']); ?></h1>
+                        <h1 class="components"><?php echo utf8_encode($row['quantidade_saida']); ?></h1>
+                        <h1 class="components"><?php echo $nome_colaborador; ?></h1>
+                        <h1 class="components">R$ <?php echo utf8_encode($row['data_retirada']); ?></h1>
+                    </div>
+
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+        <div class="opts3">
+            <h1>© 2023 PSI Industrial - Todos os direitos reservados.</h1>
+            <h1>Desenvolvido por Thaynison Couto</h1>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+<div class="backgroundOptions" id="EntradaMaterial" style="display: none;">
+    <div class="GroundOptions">
+        <div class="opts1">
+            <h1>Entrada de material</h1>
+            <i class="fa-regular fa-xmark" id="btn-ocultar-EntradaMaterial"></i>
+        </div>
+        <div class="opts2">
+            <form class="form" action="" method="post" enctype="multipart/form-data">
+                <div class="forms1">
+                    <!--  -->
+                    <div class="dadosform">
+                        <h1>Material:</h1>
+                        <select class="inputdads" name="codigo_material">
+                            <?php
+                            $consultaMateriais = "SELECT codigo_material, nome_material, foto_material FROM lista_materiais";
+                            $result_consultaMateriais = $conexao->query($consultaMateriais);
+
+                            while ($row = $result_consultaMateriais->fetch_assoc()) {
+                                $nome_material = $row['nome_material'];
+                                $codigo_material = $row['codigo_material'];
+                                echo "<option value='$codigo_material'>$nome_material | #$codigo_material</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="dadosform">
+                        <h1>Quantidade:</h1>
+                        <input class="inputdads" type="text" name="quantidade_material" id="quantidade_material">
+                    </div>
+                    <!--  -->
+                    <div class="dadosform">
+                    <!--  -->
+                    </div>
+                    <!--  -->
+                    <div class="dadosform">
+                        <input class="btn-send" type="submit" name="SalvarEntradaMaterial" value="Salvar">
+                    </div>
+                    <!--  -->
+                </div>
+            </form>
+        </div>
+        <div class="opts3">
+            <h1>© 2023 PSI Industrial - Todos os direitos reservados.</h1>
+            <h1>Desenvolvido por Thaynison Couto</h1>
+        </div>
+    </div>
+</div>
 
 <div class="backgroundOptions" id="SaidaMaterial" style="display: none;">
     <div class="GroundOptions">
@@ -142,7 +243,7 @@ if (isset($_SESSION['cargo_colaborador'])) {
                             while ($row = $result_consultaMateriais->fetch_assoc()) {
                                 $nome_material = $row['nome_material'];
                                 $codigo_material = $row['codigo_material'];
-                                echo "<option value='$codigo_material'>$nome_material</option>";
+                                echo "<option value='$codigo_material'>$nome_material | #$codigo_material</option>";
                             }
                             ?>
                         </select>
@@ -192,7 +293,24 @@ if (isset($_SESSION['cargo_colaborador'])) {
         });
     });
 </script>
+
 <script>
+    document.getElementById("listasaidamaterial-btn").addEventListener("click", function() {
+        document.getElementById("ListaSaidaMaterial").style.display = "block";
+    });
+    
+    document.getElementById("btn-ocultar-ListaSaidaMaterial").addEventListener("click", function() {
+        document.getElementById("ListaSaidaMaterial").style.display = "none";
+    });
+
+    document.getElementById("entradamaterial-btn").addEventListener("click", function() {
+        document.getElementById("EntradaMaterial").style.display = "block";
+    });
+    
+    document.getElementById("btn-ocultar-EntradaMaterial").addEventListener("click", function() {
+        document.getElementById("EntradaMaterial").style.display = "none";
+    });
+
     document.getElementById("saidamaterial-btn").addEventListener("click", function() {
         document.getElementById("SaidaMaterial").style.display = "block";
         startCamera();
@@ -245,6 +363,32 @@ if (isset($_SESSION['cargo_colaborador'])) {
 </script>
 
 <?php
+if (isset($_POST['SalvarEntradaMaterial'])) {
+    $codigo_material = $_POST['codigo_material'];
+    $quantidade_material_entrar = $_POST['quantidade_material'];
+
+    $consultarCodigoMaterial = "SELECT codigo_material, quantidade_material FROM lista_materiais WHERE codigo_material = '$codigo_material'";
+    $result_consultarCodigoMaterial = $conexao->query($consultarCodigoMaterial);
+
+    if ($result_consultarCodigoMaterial->num_rows > 0) {
+        $row = $result_consultarCodigoMaterial->fetch_assoc();
+        $quantidade_material = $row['quantidade_material'];
+
+        $nova_quantidade = $quantidade_material + $quantidade_material_entrar;
+
+        $atualizarQuantidadeMaterial = "UPDATE lista_materiais SET quantidade_material = '$nova_quantidade' WHERE codigo_material = '$codigo_material'";
+        if ($conexao->query($atualizarQuantidadeMaterial) === TRUE) {
+            // echo "Quantidade do material atualizada com sucesso.";
+            header("Location: almoxarifado.php");
+            exit();
+        } else {
+            echo "Erro ao atualizar a quantidade do material: " . $conexao->error;
+        }
+    } else {
+        echo "Material não encontrado.";
+    }
+};
+
 if (isset($_POST['SalvarSaidaMaterial'])) {
     // Dados do formulário
     $codigo_material = $_POST['codigo_material']; // Código do material selecionado
@@ -271,12 +415,13 @@ if (isset($_POST['SalvarSaidaMaterial'])) {
             // Execute a query de atualização
             if ($conexao->query($atualizarQuantidadeQuery) === TRUE) {
                 // Query para inserir os dados na tabela 'saida_material'
-                $inserirSaidaQuery = "INSERT INTO saida_material (codigo_material, nome_material, quantidade_saida, codigo_colaborador) 
-                                        VALUES ('$codigo_material', '$nome_material', '$quantidade_saida', '$codigo_colaborador')";
+                $inserirSaidaQuery = "INSERT INTO saida_material (codigo_material, nome_material, quantidade_saida, codigo_colaborador, data_retirada) 
+                VALUES ('$codigo_material', '$nome_material', '$quantidade_saida', '$codigo_colaborador', NOW())";
+
 
                 // Execute a query de inserção na tabela 'saida_material'
                 if ($conexao->query($inserirSaidaQuery) === TRUE) {
-                    echo "dados adicionados ao banco dados";
+                    // echo "dados adicionados ao banco dados";
                     header("Location: almoxarifado.php");
                     exit();
                 } else {
@@ -291,7 +436,7 @@ if (isset($_POST['SalvarSaidaMaterial'])) {
     } else {
         echo "Material não encontrado.";
     }
-}
+};
 ?>
 
 <?php
