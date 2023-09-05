@@ -55,7 +55,7 @@ if (isset($_SESSION['cargo_colaborador'])) {
                 }
             ?>
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="off    s" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -277,7 +277,7 @@ if (isset($_POST['SalvarSaidaMaterial'])) {
                 // Execute a query de inserção na tabela 'saida_material'
                 if ($conexao->query($inserirSaidaQuery) === TRUE) {
                     echo "dados adicionados ao banco dados";
-                    header("Location: documentos.php");
+                    header("Location: almoxarifado.php");
                     exit();
                 } else {
                     echo "Erro ao inserir dados na tabela de saída de material: " . $conexao->error;
