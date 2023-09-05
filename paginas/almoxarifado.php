@@ -31,6 +31,7 @@ if (isset($_SESSION['cargo_colaborador'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../styles/almoxarifado.css">
     <link rel="stylesheet" href="../styles/bootstrap.min.css">
+    <script src="../scripts/quagga.min.js"></script>
     <link rel="shortcut icon" href="../img/psi-logo.png" type="image/x-icon">
     <title>PSI Industrial – Elétrica, Instrumentação e Automação Industrial</title>
 </head>
@@ -54,7 +55,7 @@ if (isset($_SESSION['cargo_colaborador'])) {
                 }
             ?>
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="off    s" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -74,7 +75,7 @@ if (isset($_SESSION['cargo_colaborador'])) {
                 <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Lista de Material</a></li>
                 <li><a class="dropdown-item" href="#"><i class="fa-regular fa-minus"></i> Lista de Saida de Material</a></li>
                 <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Entrada de Material</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-minus"></i> Saida de Material</a></li>
+                <li><a class="dropdown-item" id="saidamaterial-btn" href="#"><i class="fa-regular fa-minus"></i> Saida de Material</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -120,6 +121,59 @@ if (isset($_SESSION['cargo_colaborador'])) {
 </body>
 </html>
 
+
+<div class="backgroundOptions" id="SaidaMaterial" style="display: none;">
+    <div class="GroundOptions">
+        <div class="opts1">
+            <h1>Saida de material</h1>
+            <i class="fa-regular fa-xmark" id="btn-ocultar-SaidaMaterial"></i>
+        </div>
+        <div class="opts2">
+            <form class="form" action="" method="post" enctype="multipart/form-data">
+                <div class="forms1">
+                    <!--  -->
+                    <div class="dadosform">
+                        <h1>Material:</h1>
+                        <select class="inputdads" name="codigo_material">
+                            <?php
+                            $consultaMateriais = "SELECT codigo_material, nome_material, foto_material FROM lista_materiais";
+                            $result_consultaMateriais = $conexao->query($consultaMateriais);
+
+                            while ($row = $result_consultaMateriais->fetch_assoc()) {
+                                $nome_material = $row['nome_material'];
+                                $codigo_material = $row['codigo_material'];
+                                echo "<option value='$codigo_material'>$nome_material</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="dadosform">
+                        <h1>Quantidade:</h1>
+                        <input class="inputdads" type="text" name="quantidade_material" id="quantidade_material">
+                    </div>
+                    <!--  -->
+                    <div class="dadosform">
+                        <h1>Codigo Colaborador:</h1>
+                        <div id="camera"></div>
+                        <input id="resultado" disabled>
+                        <input id="resultado" class="resultado" type="hidden" name="codigo_colaborador">
+                    </div>
+                    <!--  -->
+                    <div class="dadosform">
+                        <input class="btn-send" type="submit" name="SalvarSaidaMaterial" value="Salvar">
+                    </div>
+                    <!--  -->
+                </div>
+            </form>
+        </div>
+        <div class="opts3">
+            <h1>© 2023 PSI Industrial - Todos os direitos reservados.</h1>
+            <h1>Desenvolvido por Thaynison Couto</h1>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Certifique-se de incluir o jQuery -->
 <script>
     $(document).ready(function() {
@@ -138,6 +192,107 @@ if (isset($_SESSION['cargo_colaborador'])) {
         });
     });
 </script>
+<script>
+    document.getElementById("saidamaterial-btn").addEventListener("click", function() {
+        document.getElementById("SaidaMaterial").style.display = "block";
+        startCamera();
+    });
+
+    document.getElementById("btn-ocultar-SaidaMaterial").addEventListener("click", function() {
+        document.getElementById("SaidaMaterial").style.display = "none";
+        stopCamera();
+    });
+
+    let isCameraActive = false;
+
+    function startCamera() {
+        if (!isCameraActive) {
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: document.querySelector('#camera')
+                },
+                decoder: {
+                    readers: ["code_128_reader"]
+                }
+            }, function (err) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                console.log("Initialization finished. Ready to start");
+                Quagga.start();
+                isCameraActive = true;
+            });
+
+            Quagga.onDetected(function (data) {
+                document.querySelector('#resultado').value = data.codeResult.code;
+                document.querySelector('.resultado').value = data.codeResult.code;
+                NumeroColab = data.codeResult.code
+                console.log(NumeroColab);
+
+            });
+        }
+    }
+
+    function stopCamera() {
+        if (isCameraActive) {
+            Quagga.stop();
+            isCameraActive = false;
+        }
+    }
+</script>
+
+<?php
+if (isset($_POST['SalvarSaidaMaterial'])) {
+    // Dados do formulário
+    $codigo_material = $_POST['codigo_material']; // Código do material selecionado
+    $quantidade_saida = $_POST['quantidade_material'];
+    $codigo_colaborador = $_POST['codigo_colaborador'];
+
+    // Consulta para obter o nome do material com base no código selecionado
+    $consultaNomeMaterial = "SELECT nome_material, quantidade_material FROM lista_materiais WHERE codigo_material = '$codigo_material'";
+    $resultadoNomeMaterial = $conexao->query($consultaNomeMaterial);
+
+    if ($resultadoNomeMaterial->num_rows > 0) {
+        $row = $resultadoNomeMaterial->fetch_assoc();
+        $nome_material = $row['nome_material'];
+        $quantidade_material_atual = $row['quantidade_material'];
+
+        // Verifique se há material suficiente disponível para a saída
+        if ($quantidade_saida <= $quantidade_material_atual) {
+            // Calcule a nova quantidade de material após a saída
+            $nova_quantidade_material = $quantidade_material_atual - $quantidade_saida;
+
+            // Atualize a quantidade de material na tabela 'lista_materiais'
+            $atualizarQuantidadeQuery = "UPDATE lista_materiais SET quantidade_material = '$nova_quantidade_material' WHERE codigo_material = '$codigo_material'";
+
+            // Execute a query de atualização
+            if ($conexao->query($atualizarQuantidadeQuery) === TRUE) {
+                // Query para inserir os dados na tabela 'saida_material'
+                $inserirSaidaQuery = "INSERT INTO saida_material (codigo_material, nome_material, quantidade_saida, codigo_colaborador) 
+                                        VALUES ('$codigo_material', '$nome_material', '$quantidade_saida', '$codigo_colaborador')";
+
+                // Execute a query de inserção na tabela 'saida_material'
+                if ($conexao->query($inserirSaidaQuery) === TRUE) {
+                    echo "dados adicionados ao banco dados";
+                    header("Location: documentos.php");
+                    exit();
+                } else {
+                    echo "Erro ao inserir dados na tabela de saída de material: " . $conexao->error;
+                }
+            } else {
+                echo "Erro ao atualizar a quantidade de material: " . $conexao->error;
+            }
+        } else {
+            echo "Quantidade de material insuficiente para a saída.";
+        }
+    } else {
+        echo "Material não encontrado.";
+    }
+}
+?>
 
 <?php
 ob_end_flush(); // Envia a saída do buffer
