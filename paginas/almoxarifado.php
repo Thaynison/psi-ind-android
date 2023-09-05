@@ -515,6 +515,7 @@ if (isset($_POST['SalvarSaidaMaterial'])) {
     }
 };
 
+<?php
 if (isset($_POST['CadastrarMaterialNovo'])) {
     $nome_material = $_POST['nome_material'];
     $quantidade_material = $_POST['quantidade_material'];
@@ -523,7 +524,7 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
 
     // Save the image in a predefined folder
     $target_dir = "img/Materiais/";
-    
+
     // Create the directory if it does not exist
     if (!file_exists($target_dir)) {
         mkdir($target_dir, 0777, true);
@@ -540,11 +541,11 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
     $foto_material = $target_dir . $new_image_name;
 
     mysqli_set_charset($conexao, 'utf8');
-    
+
     // Check if the material already exists in the database
     $check_query = "SELECT * FROM lista_materiais WHERE codigo_material='$codigo_material' OR foto_material='$foto_material'";
     $check_result = mysqli_query($conexao, $check_query);
-    
+
     if (mysqli_num_rows($check_result) > 0) {
         echo "O material já existe no banco de dados";
     } else {
@@ -553,6 +554,32 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
         $Update_Criar_Material = mysqli_query($conexao, $Criar_Material);
 
         if ($Update_Criar_Material) {
+            // Commit the image to GitHub
+            $github_token = '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'; // Substitua pelo seu token do GitHub
+            $github_repo = 'Thaynison/psi-ind-android'; // Substitua pelo seu usuário e nome do repositório
+
+            $commit_message = 'Adicionada imagem ' . $new_image_name;
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/$github_repo/contents/$target_dir$new_image_name");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $github_token));
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
+            
+            $file_content = base64_encode(file_get_contents($target_dir . $new_image_name));
+            
+            $data = array(
+                'message' => $commit_message,
+                'content' => $file_content,
+                'branch' => 'main', // Substitua pela branch desejada
+            );
+
+            $payload = json_encode($data);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+
+            $result = curl_exec($ch);
+            curl_close($ch);
+
             header("Location: almoxarifado.php");
             exit();
         } else {
@@ -561,6 +588,8 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
         }
     }
 };
+?>
+
 ?>
 
 <?php
