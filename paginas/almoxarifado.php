@@ -154,10 +154,10 @@ if (isset($_SESSION['cargo_colaborador'])) {
 
                     <div class="add5 material-item">
                         <h1 class="components">#<?php echo utf8_encode($row['codigo_material']); ?></h1>
-                        <h1 class="components">#<?php echo utf8_encode($row['nome_material']); ?></h1>
+                        <h1 class="components"><?php echo utf8_encode($row['nome_material']); ?></h1>
                         <h1 class="components"><?php echo utf8_encode($row['quantidade_saida']); ?></h1>
                         <h1 class="components"><?php echo $nome_colaborador; ?></h1>
-                        <h1 class="components">R$ <?php echo utf8_encode($row['data_retirada']); ?></h1>
+                        <h1 class="components"><?php echo utf8_encode($row['data_retirada']); ?></h1>
                     </div>
 
                 <?php
