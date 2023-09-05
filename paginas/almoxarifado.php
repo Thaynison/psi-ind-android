@@ -515,7 +515,6 @@ if (isset($_POST['SalvarSaidaMaterial'])) {
     }
 };
 
-<?php
 if (isset($_POST['CadastrarMaterialNovo'])) {
     $nome_material = $_POST['nome_material'];
     $quantidade_material = $_POST['quantidade_material'];
