@@ -86,7 +86,29 @@ if (isset($_SESSION['cargo_colaborador'])) {
     </nav>
     <nav class="materiais_am01">
         <div class="center_materias">
-
+            <div class="add4">
+                <h1 class="components"></h1>
+                <h1 class="components">COD</h1>
+                <h1 class="components">Material</h1>
+                <h1 class="components">Quantidade</h1>
+                <h1 class="components">Valor Unitário</h1>
+            </div>
+            <div class="add5-container">
+            <?php
+                while ($row = mysqli_fetch_assoc($result_BuscarMaterial)) {?>
+                    <div class="add5 material-item">
+                        <h1 class="components" style="font-size: 15px; display: flex; justify-content: space-evenly; align-items: center;">
+                            <img class="componentsimg" src="<?php echo ($row['foto_material']); ?>" alt="">
+                        </h1>
+                        <h1 class="components">#<?php echo utf8_encode($row['codigo_material']); ?></h1>
+                        <h1 class="components"><?php echo utf8_encode($row['nome_material']); ?></h1>
+                        <h1 class="components"><?php echo utf8_encode($row['quantidade_material']); ?></h1>
+                        <h1 class="components">R$ <?php echo utf8_encode($row['valor_material']); ?></h1>
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
         </div>
     </nav>
 </body>
