@@ -588,9 +588,6 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
     }
 };
 ?>
-
-?>
-
 <?php
 ob_end_flush(); // Envia a saída do buffer
 ?>
