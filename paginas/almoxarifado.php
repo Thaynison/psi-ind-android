@@ -15,10 +15,11 @@ if (isset($_SESSION['cargo_colaborador'])) {
         // Não faça o redirecionamento aqui, pois já está no local certo (Almoxarifado)
     } else {
         header("Location: dashboard.php");
-        exit(); // Certifique-se de sair após o redirecionamento
+        exit();
     }
 } else {
-    echo "Você não está logado.";
+    header("Location: ../index.php");
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -48,7 +49,8 @@ if (isset($_SESSION['cargo_colaborador'])) {
                     $nome_colaborador = $_SESSION['nome_colaborador'];
                     echo "Olá, $nome_colaborador!";
                 } else {
-                    echo "Você não está logado.";
+                    header("Location: ../index.php");
+                    exit();
                 }
             ?>
             </h5>
