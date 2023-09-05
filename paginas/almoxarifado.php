@@ -82,6 +82,10 @@ if (isset($_SESSION['cargo_colaborador'])) {
                 </ul>
             </li>
             </ul>
+            <form class="d-flex mt-3" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <button class="btn btn-outline-success" type="submit" id="searchButton">Search</button>
+            </form>
         </div>
         </div>
     </div>
@@ -116,6 +120,26 @@ if (isset($_SESSION['cargo_colaborador'])) {
 </body>
 </html>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Certifique-se de incluir o jQuery -->
+<script>
+    $(document).ready(function() {
+        $('#searchButton').click(function(e) {
+            e.preventDefault(); // Impede o envio do formulário
+            var searchText = $('#searchInput').val().toLowerCase();
+            $('.material-item').each(function() {
+                var materialName = $(this).find('.components:eq(2)').text().toLowerCase();
+                var materialCode = $(this).find('.components:eq(1)').text().toLowerCase();
+                if (materialName.includes(searchText) || materialCode.includes(searchText)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
+
 <?php
 ob_end_flush(); // Envia a saída do buffer
 ?>
+
