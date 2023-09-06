@@ -78,7 +78,7 @@ $result_BuscarSaidaMaterial = mysqli_query($conexao, $BuscarSaidaMaterial );
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
                 <li><a class="dropdown-item" id="cadastrarmaterial-btn" href="#"><i class="fa-regular fa-plus"></i> Cadastrar Material</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-regular fa-plus"></i> Romaneio de Entrada</a></li>
+                <li><a class="dropdown-item" id="romaneientrada-btn" href="#"><i class="fa-regular fa-plus"></i> Romaneio de Entrada</a></li>
                 <li><a class="dropdown-item" id="listasaidamaterial-btn" href="#"><i class="fa-regular fa-minus"></i> Lista de Saida de Material</a></li>
                 <li><a class="dropdown-item" id="entradamaterial-btn" href="#"><i class="fa-regular fa-plus"></i> Entrada de Material</a></li>
                 <li><a class="dropdown-item" id="saidamaterial-btn" href="#"><i class="fa-regular fa-minus"></i> Saida de Material</a></li>
@@ -100,7 +100,6 @@ $result_BuscarSaidaMaterial = mysqli_query($conexao, $BuscarSaidaMaterial );
     <nav class="materiais_am01">
         <div class="center_materias">
             <div class="add4">
-                <h1 class="components"></h1>
                 <h1 class="components">COD</h1>
                 <h1 class="components">Material</h1>
                 <h1 class="components">Quantidade</h1>
@@ -110,9 +109,6 @@ $result_BuscarSaidaMaterial = mysqli_query($conexao, $BuscarSaidaMaterial );
             <?php
                 while ($row = mysqli_fetch_assoc($result_BuscarMaterial)) {?>
                     <div class="add5 material-item">
-                        <h1 class="components" style="font-size: 15px; display: flex; justify-content: space-evenly; align-items: center;">
-                            <img class="componentsimg" src="<?php echo ($row['foto_material']); ?>" alt="">
-                        </h1>
                         <h1 class="components">#<?php echo utf8_encode($row['codigo_material']); ?></h1>
                         <h1 class="components"><?php echo utf8_encode($row['nome_material']); ?></h1>
                         <h1 class="components"><?php echo utf8_encode($row['quantidade_material']); ?></h1>
@@ -151,8 +147,8 @@ $result_BuscarSaidaMaterial = mysqli_query($conexao, $BuscarSaidaMaterial );
                     </div>
                 </div>
                 <div class="dadosform">
-                    <h1>Foto do Material</h1>
-                    <input class="inputdads" type="file" accept="image/*" name="foto_material" id="foto_material">
+                    <!-- <h1>Foto do Material</h1>
+                    <input class="inputdads" type="file" accept="image/*" name="foto_material" id="foto_material"> -->
                     <input class="inputdads" type="hidden" name="codigo_material" id="codigo_material">
                 </div>
                 <div class="dadosform">
@@ -160,6 +156,26 @@ $result_BuscarSaidaMaterial = mysqli_query($conexao, $BuscarSaidaMaterial );
                 </div>
             </div>
         </form>
+        </div>
+        <div class="opts3">
+            <h1>© 2023 PSI Industrial - Todos os direitos reservados.</h1>
+            <h1>Desenvolvido por Thaynison Couto</h1>
+        </div>
+    </div>
+</div>
+
+<div class="backgroundOptions" id="RomaneioEntrada" style="display: none;">
+    <div class="GroundOptions">
+        <div class="opts1">
+            <h1>Romaneio de Entrada</h1>
+            <i class="fa-regular fa-xmark" id="btn-ocultar-romaneientrada"></i>
+        </div>
+        <div class="opts2">
+            <form action="" method="post" enctype="multipart/form-data">
+                <h1>Insira os Dados aqui!</h1>
+                <textarea class="textarea" name="SalvarRomaneioEntrada" id="dados" rows="10" cols="50"></textarea>
+                <input class="btn-send" type="submit" value="Enviar">
+            </form>
         </div>
         <div class="opts3">
             <h1>© 2023 PSI Industrial - Todos os direitos reservados.</h1>
@@ -521,64 +537,20 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
     $valor_material = $_POST['valor_material'];
     $codigo_material = $_POST['codigo_material'];
 
-    // Save the image in a predefined folder
-    $target_dir = "img/Materiais/";
-
-    // Create the directory if it does not exist
-    if (!file_exists($target_dir)) {
-        mkdir($target_dir, 0777, true);
-    }
-
-    $target_file = $target_dir . basename($_FILES["foto_material"]["name"]);
-    move_uploaded_file($_FILES["foto_material"]["tmp_name"], $target_file);
-
-    // Change the name of the image to '$codigo_material.png'
-    $new_image_name = $codigo_material . '.png';
-    rename($target_file, $target_dir . $new_image_name);
-
-    // Save the image URL in the database
-    $foto_material = $target_dir . $new_image_name;
-
     mysqli_set_charset($conexao, 'utf8');
-
+    
     // Check if the material already exists in the database
-    $check_query = "SELECT * FROM lista_materiais WHERE codigo_material='$codigo_material' OR foto_material='$foto_material'";
+    $check_query = "SELECT * FROM lista_materiais WHERE codigo_material='$codigo_material'";
     $check_result = mysqli_query($conexao, $check_query);
-
+    
     if (mysqli_num_rows($check_result) > 0) {
         echo "O material já existe no banco de dados";
     } else {
         // Insert the new material into the database
-        $Criar_Material = "INSERT INTO lista_materiais (codigo_material, nome_material, foto_material, quantidade_material, valor_material) VALUES ( '$codigo_material', '$nome_material', '$foto_material', '$quantidade_material', '$valor_material')";
+        $Criar_Material = "INSERT INTO lista_materiais (codigo_material, nome_material, quantidade_material, valor_material) VALUES ( '$codigo_material', '$nome_material', '$quantidade_material', '$valor_material')";
         $Update_Criar_Material = mysqli_query($conexao, $Criar_Material);
 
         if ($Update_Criar_Material) {
-            // Commit the image to GitHub
-            $github_token = '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'; // Substitua pelo seu token do GitHub
-            $github_repo = 'Thaynison/psi-ind-android'; // Substitua pelo seu usuário e nome do repositório
-
-            $commit_message = 'Adicionada imagem ' . $new_image_name;
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://api.github.com/repos/$github_repo/contents/$target_dir$new_image_name");
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $github_token));
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PUT');
-            
-            $file_content = base64_encode(file_get_contents($target_dir . $new_image_name));
-            
-            $data = array(
-                'message' => $commit_message,
-                'content' => $file_content,
-                'branch' => 'main', // Substitua pela branch desejada
-            );
-
-            $payload = json_encode($data);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-
-            $result = curl_exec($ch);
-            curl_close($ch);
-
             header("Location: almoxarifado.php");
             exit();
         } else {
@@ -588,6 +560,7 @@ if (isset($_POST['CadastrarMaterialNovo'])) {
     }
 };
 ?>
+
 <?php
 ob_end_flush(); // Envia a saída do buffer
 ?>
